@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th>Flight Number</th>
+            <th>Launch Year</th>
+            <th>Rocket Name</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let launch of launches"> -->
+        <tr>
+            <td>{{ launches.flight_number }}</td>
+            <td>{{ launches.date_local }}</td>
+            <td>{{ launches.name }}</td>
+            <td>{{ launches.details }}</td>
+        </tr>
+    </tbody>
+</table>
