@@ -1,19 +1,29 @@
-<table>
-    <thead>
-        <tr>
-            <th>Flight Number</th>
-            <th>Launch Year</th>
-            <th>Rocket Name</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- <tr *ngFor="let launch of launches"> -->
-        <tr>
-            <td>{{ launches.flight_number }}</td>
-            <td>{{ launches.date_local }}</td>
-            <td>{{ launches.name }}</td>
-            <td>{{ launches.details }}</td>
-        </tr>
-    </tbody>
-</table>
+<div [class.launches-table-container]="true">
+    <div [class.sort-label]="true">
+        <label>Sort By
+        <select [(ngModel)]="selectedSortOption" (ngModelChange)="sortResults()">
+            <option value="flight_number">Flight Number</option>
+            <option value="name">Rocket Name</option>
+        </select>
+    </label>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Flight Number</th>
+                <th>Launch Year</th>
+                <th>Rocket Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let launch of launches | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                <td>{{ launch.flight_number }}</td>
+                <td>{{ launch.launch_year }}</td>
+                <td>{{ launch.name }}</td>
+                <td>{{ launch.details }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

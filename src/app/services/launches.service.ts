@@ -6,11 +6,38 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LaunchesService {
-  spaceXURL = 'https://api.spacexdata.com/v5/launches/latest';
-
+  spaceXURL = 'https://api.spacexdata.com/v5/launches';
+  launches: any;
   constructor(private http: HttpClient) {}
   
   getLaunches(): Observable<any> {
-    return this.http.get(this.spaceXURL);
+    this.launches = this.http.get(this.spaceXURL);
+    return this.launches
+  }
+
+  addLaunchYear(launches: any) {
+    this.launches = launches.map((launch: any) => {
+      const date = new Date(launch.date_unix * 1000);
+      const year = date.getFullYear();
+      return { ...launch, launch_year: year };
+    });
+    return this.launches
+  }
+
+  sortBy(key: string) {
+    // Validity check - sorting key
+    if (!this.launches[0].hasOwnProperty(key)) {
+      throw new Error('Key to sort by does not exist in launch data.')
+    }
+
+    switch (key) {
+      case 'name':
+        this.launches.sort((a: any, b: any) => (a.name || "").localeCompare(b.name || ""));
+        break;
+      case 'flight_number':
+        this.launches.sort((a: any, b: any) => a.flight_number - b.flight_number);
+        break;
+    }
+    return this.launches
   }
 }
