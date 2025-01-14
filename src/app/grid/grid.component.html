@@ -1,5 +1,5 @@
-<div [class.launches-table-container]="true">
-    <div [class.sort-label]="true">
+<div class="launches-table-container">
+    <div class="sort-label">
         <label>Sort By
         <select [(ngModel)]="selectedSortOption" (ngModelChange)="sortResults()">
             <option value="flight_number">Flight Number</option>
@@ -8,7 +8,7 @@
     </label>
     </div>
     <table>
-        <thead>
+        <thead class="table-header">
             <tr>
                 <th>Flight Number</th>
                 <th>Launch Year</th>
@@ -17,11 +17,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let launch of launches | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+            <tr *ngFor="let launch of launches | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" (click)="selectRow(i)">
                 <td>{{ launch.flight_number }}</td>
                 <td>{{ launch.launch_year }}</td>
                 <td>{{ launch.name }}</td>
                 <td>{{ launch.details }}</td>
+                <div *ngIf="launch.showLinks" class="link-box">
+                    <b class="link-box-title">Media Links:</b>
+                    <div *ngFor="let link of launch.links | keyvalue">
+                        <a href={{link.value}}>{{ link.key }}</a>
+                    </div>
+                </div>
             </tr>
         </tbody>
     </table>

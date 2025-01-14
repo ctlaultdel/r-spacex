@@ -15,11 +15,13 @@ export class LaunchesService {
     return this.launches
   }
 
-  addLaunchYear(launches: any) {
+  processLaunches(launches: any) {
     this.launches = launches.map((launch: any) => {
+      // add launch year
       const date = new Date(launch.date_unix * 1000);
       const year = date.getFullYear();
-      return { ...launch, launch_year: year };
+      // add showLinks key
+      return { ...launch, launch_year: year, showLinks: false };
     });
     return this.launches
   }

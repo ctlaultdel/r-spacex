@@ -7,11 +7,27 @@ table, th, td {
     table-layout: fixed;
 }
 
+.table-header {
+    background-color: #0a2351;
+    color: white;
+}
+
 .sort-label {
     padding-left: 80%;
     padding-bottom: 1%;
 }
 
-.links-box {
-    background-color: black;
+.link-box {
+    position:absolute;
+    right: 0px;
+    z-index: 9999;
+    display: block;
+    border: 1.5px solid;
+    background: #F0F8FF;
+    margin-right: 80%;
+    min-width: 150px;
+}
+
+.link-box-title {
+    text-decoration: underline;
 }

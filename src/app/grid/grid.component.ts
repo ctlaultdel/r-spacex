@@ -16,17 +16,20 @@ export class GridComponent implements OnInit {
   launches: any = [];
   p: number = 1;
   selectedSortOption: string = 'flight_number';
-  selectedLaunch: any = null;
 
   constructor(private launchesService: LaunchesService) {}
 
   ngOnInit(): void {
     this.launchesService.getLaunches().subscribe((data: any[]) => {
-      this.launches = this.launchesService.addLaunchYear(data);
+      this.launches = this.launchesService.processLaunches(data);
     })
   }
 
   sortResults() {
     this.launches = this.launchesService.sortBy(this.selectedSortOption)
+  }
+
+  selectRow(i: number) {
+    this.launches[i].showLinks = !this.launches[i].showLinks
   }
 }
