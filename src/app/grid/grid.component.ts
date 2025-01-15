@@ -34,10 +34,10 @@ export class GridComponent implements OnInit {
 
   selectRow(i: any) {
     // deselect prev row
-    if (this.selectedRow) this.launches[this.selectedRow].showLinks = false
+    if (this.selectedRow && (i != this.selectedRow)) this.launches[this.selectedRow].showLinks = false
 
     // select new row
-    if (i) this.launches[i].showLinks = true
+    if (i) this.launches[i].showLinks = !this.launches[i].showLinks
     // set new selected row
     this.selectedRow = i || null
   }
