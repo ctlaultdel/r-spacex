@@ -16,6 +16,7 @@ export class GridComponent implements OnInit {
   launches: any = [];
   p: number = 1;
   selectedSortOption: string = 'flight_number';
+  selectedRow: any = null;
 
   constructor(private launchesService: LaunchesService) {}
 
@@ -26,10 +27,18 @@ export class GridComponent implements OnInit {
   }
 
   sortResults() {
+    // deselect rows since order is going to change
+    this.selectRow(null)
     this.launches = this.launchesService.sortBy(this.selectedSortOption)
   }
 
-  selectRow(i: number) {
-    this.launches[i].showLinks = !this.launches[i].showLinks
+  selectRow(i: any) {
+    // deselect prev row
+    if (this.selectedRow) this.launches[this.selectedRow].showLinks = false
+
+    // select new row
+    if (i) this.launches[i].showLinks = true
+    // set new selected row
+    this.selectedRow = i || null
   }
 }
